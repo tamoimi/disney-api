@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Roboto_Mono } from "next/font/google";
 import "./globals.css";
 import { SWRProvider } from "./swr-provider";
+import Navigation from "./components/navigation";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto  = Roboto_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,10 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SWRProvider>
-      <html lang="en">
-        <body className={inter.className}>{children}</body>
-      </html>
-    </SWRProvider>
+    <html lang="en">
+      <body className={roboto.className}>
+        <Navigation />
+        {children}
+      </body>
+    </html>
   );
 }
