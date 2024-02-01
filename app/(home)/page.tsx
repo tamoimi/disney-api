@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
-export const API_URL = "https://rickandmortyapi.com/api";
+import { API_URL } from "../api/rick-and-morty-api";
 
 async function getCharacters() {
   const response = await fetch(`${API_URL}/character`);

@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // rick and morty api
-const API_URL = "https://rickandmortyapi.com/api";
+// const API_URL = "https://rickandmortyapi.com/api";
+export const API_URL = "https://rickandmortyapi.com/api";
 
 // async function getCharacters() {
 //   const response = await fetch(API_URL);
