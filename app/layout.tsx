@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Roboto_Mono } from "next/font/google";
-import "./globals.css";
-import { SWRProvider } from "./swr-provider";
+import { Roboto_Mono } from "next/font/google";
 import Navigation from "./components/navigation";
+import "./globals.css";
 
 const roboto  = Roboto_Mono({ subsets: ["latin"] });
 
