@@ -19,6 +19,7 @@ export default async function CharacterDetail({ params: { id } }: { params: { id
           style={{ width: "100%", height: "auto", borderRadius: "50%", marginBottom: 20 }}
         />
         <h1>Name:{character.name}</h1>
+        <h1>Name:{character.name}</h1>
         <h4>Status:{character.status}</h4>
         <h4>Origin:{character.origin.name}</h4>
         <h4>Gender:{character.gender}</h4>
