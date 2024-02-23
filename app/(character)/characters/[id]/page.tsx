@@ -6,7 +6,7 @@ async function getDetail(id: string) {
   return response.json();
 }
 
-export default async function CharacterDetail({ params: { id } }: { params: { id: string } }) {
+export default async function CharacterDetail({ id }: { id: string }) {
   const character = await getDetail(id);
   return (
     <>
