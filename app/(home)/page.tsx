@@ -1,11 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { API_URL } from "../contents";
 
 // export const metaData = {
 //   title: "Home",
 // };
-
-export const API_URL = "https://rickandmortyapi.com/api";
 
 async function getCharacters() {
   const response = await fetch(`${API_URL}/character`);
