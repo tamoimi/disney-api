@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export const metaData = {
-  title: "Home",
-};
+// export const metaData = {
+//   title: "Home",
+// };
 
 export const API_URL = "https://rickandmortyapi.com/api";
 
