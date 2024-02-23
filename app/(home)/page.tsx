@@ -1,6 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 
+export const metaData = {
+  title: "Home",
+};
+
 export const API_URL = "https://rickandmortyapi.com/api";
 
 async function getCharacters() {
@@ -9,7 +13,7 @@ async function getCharacters() {
   return json;
 }
 
-export default async function Home() {
+export default async function HomePage() {
   // swr --------------------------------------------------------------------------------------- swr
   // const { data } = useSWR("api/rick-and-morty", getCharacters);
   const characters = await getCharacters();
