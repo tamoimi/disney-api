@@ -1,5 +1,5 @@
-import { API_URL } from "@/app/(home)/page";
 import Image from "next/image";
+import { API_URL } from "../contents";
 
 async function getDetail(id: string) {
   const response = await fetch(`${API_URL}/character/${id}`);
