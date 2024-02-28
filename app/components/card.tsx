@@ -2,8 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { API_URL } from "../contents";
 
-async function getCharacters() {
-  const response = await fetch(`${API_URL}/character`);
+async function getCharacters(page = 1) {
+  const response = await fetch(`${API_URL}/character?page=${page}`);
   const json = await response.json();
   return json;
 }
@@ -12,9 +12,10 @@ export default async function Card() {
   // swr --------------------------------------------------------------------------------------- swr
   // const { data } = useSWR("api/rick-and-morty", getCharacters);
   const characters = await getCharacters();
+  console.log("characters", characters);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-10">
+    <main className="flex min-h-screen flex-col items-center justify-center p-10">
       <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-6">
         {characters?.results.map((character: any) => (
           <div
@@ -63,6 +64,19 @@ export default async function Card() {
             </div>
           </div>
         ))}
+        <div className="flex justify-between w-full">
+          {/* <button
+        disabled={currentPage === 1}
+        className="px-4 py-2 text-white bg-blue-500 disabled:bg-gray-300"
+      >
+        이전
+      </button>
+      <button
+        className="px-4 py-2 text-white bg-blue-500"
+      >
+        다음
+      </button> */}
+        </div>
       </div>
     </main>
   );
