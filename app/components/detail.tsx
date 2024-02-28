@@ -20,7 +20,8 @@ export default async function CharacterInfo({ id }: { id: string }) {
         />
         <div className="bg-gray-200 my-10 p-3 rounded">
         <h1>Name:{character.name}</h1>
-        <h4>Status:{character.status}</h4>
+        <h4>Status:{character.species}</h4>
+        <h4>Species:{character.status}</h4>
         <h4>Origin:{character.origin.name}</h4>
         <h4>Gender:{character.gender}</h4>
         </div>
