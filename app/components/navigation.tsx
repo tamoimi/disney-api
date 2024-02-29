@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Navigation() {
   return (
-    <div className="pt-10 flex justify-center ">
+    <div className="pt-3 flex justify-center ">
       <Link href={"/"}>
         <Image src={"/rick-and-morty.png"} width={60} height={60} alt="rick-and-morty" />
       </Link>
