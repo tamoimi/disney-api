@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { API_URL } from "../contents";
+import { useEffect, useState } from "react";
 
 async function getCharacters(page = 1) {
   const response = await fetch(`${API_URL}/character?page=${page}`);
@@ -8,16 +11,54 @@ async function getCharacters(page = 1) {
   return json;
 }
 
-export default async function Card() {
-  // swr --------------------------------------------------------------------------------------- swr
-  // const { data } = useSWR("api/rick-and-morty", getCharacters);
-  const characters = await getCharacters();
-  console.log("characters", characters);
+export default function Card() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [characters, setCharacters] = useState([]);
+  const [pageRange, setPageRange] = useState({
+    start: 1,
+    end: 5,
+  });
+
+  // 현재 페이지가 변경될 때마다 캐릭터 데이터를 가져오는 useEffect
+  useEffect(() => {
+    getCharacters(currentPage).then((data) => {
+      setCharacters(data.results);
+      setTotalPages(data.info.pages);
+    });
+  }, [currentPage]);
+
+  const handlePageClick = (pageNumber: any) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // "이전" 및 "다음" 페이지 범위 핸들러
+  const handleNextRange = () => {
+    setPageRange((prevRange) => {
+      const newEnd = Math.min(prevRange.end + 5, totalPages);
+      const newStart = prevRange.start + 5;
+      return { start: newStart, end: newEnd };
+    });
+  };
+
+  const handlePreviousRange = () => {
+    setPageRange((prevRange) => {
+      const newStart = Math.max(1, prevRange.start - 5);
+      const newEnd = prevRange.end - 5;
+      return { start: newStart, end: newEnd };
+    });
+  };
+
+  // 페이지네이션 숫자를 생성하는 함수
+  const paginationNumbers = () => {
+    const length = pageRange.end - pageRange.start + 1;
+    return Array.from({ length }, (_, index) => pageRange.start + index);
+  };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-10">
-      <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-6">
-        {characters?.results.map((character: any) => (
+    <main className="flex min-h-screen flex-col items-center justify-center sm:p-10 p-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+        {characters?.map((character: any) => (
           <div
             className="max-w-sm bg-white border border-gray-200 rounded-lg shadow p-4 "
             key={character.id}
@@ -33,16 +74,20 @@ export default async function Card() {
             </Link>
             <div className="py-4">
               <Link href={`characters/${character.id}`}>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
+                <h5 className="mb-2 sm:text-2xl font-bold tracking-tight text-gray-900">
                   {character.name}
                 </h5>
               </Link>
-              <p className="mb-3 font-normal text-gray-700 ">status: {character.status}</p>
-              <p className="mb-3 font-normal text-gray-700 ">species: {character.species}</p>
+              <p className="mb-3 text-sm sm:text-normal text-gray-700 ">
+                status: {character.status}
+              </p>
+              <p className="mb-3 text-sm sm:text-normal text-gray-700 ">
+                species: {character.species}
+              </p>
 
               <Link
                 href={`characters/${character.id}`}
-                className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-teal-700 rounded-lg hover:bg-teal-800"
+                className="inline-flex items-center px-3 py-2 text-xs font-medium text-center text-white bg-teal-700 rounded-lg hover:bg-teal-800"
               >
                 Read more
                 <svg
@@ -64,19 +109,33 @@ export default async function Card() {
             </div>
           </div>
         ))}
-        <div className="flex justify-between w-full">
-          {/* <button
-        disabled={currentPage === 1}
-        className="px-4 py-2 text-white bg-blue-500 disabled:bg-gray-300"
-      >
-        이전
-      </button>
-      <button
-        className="px-4 py-2 text-white bg-blue-500"
-      >
-        다음
-      </button> */}
-        </div>
+      </div>
+      <div className="flex justify-between pt-4 gap-2">
+        <button
+          onClick={handlePreviousRange}
+          disabled={pageRange.start === 1}
+          className="px-4 py-2 rounded bg-neutral-400 text-white"
+        >
+          {"<"}
+        </button>
+        {paginationNumbers().map((number) => (
+          <button
+            key={number}
+            onClick={() => handlePageClick(number)}
+            className={`px-4 py-2 text-white rounded ${
+              currentPage === number ? "bg-teal-700" : "bg-neutral-400"
+            }`}
+          >
+            {number}
+          </button>
+        ))}
+        <button
+          onClick={handleNextRange}
+          disabled={pageRange.end >= totalPages}
+          className="px-4 py-2 rounded bg-neutral-400 text-white"
+        >
+          {">"}
+        </button>
       </div>
     </main>
   );
