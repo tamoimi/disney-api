@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { API_URL } from "../contents";
 import { useEffect, useState } from "react";
+import { HiArrowSmallLeft, HiArrowSmallRight } from "react-icons/hi2";
 
 async function getCharacters(page = 1) {
   const response = await fetch(`${API_URL}/character?page=${page}`);
@@ -110,31 +111,32 @@ export default function Card() {
           </div>
         ))}
       </div>
-      <div className="flex justify-between pt-4 gap-2">
+      <div className="flex justify-between pt-4 items-center">
         <button
           onClick={handlePreviousRange}
           disabled={pageRange.start === 1}
-          className="px-4 py-2 rounded bg-neutral-400 text-white"
+          className="p-1 bg-teal-500 text-neutral-700 rounded-full mr-3"
         >
-          {"<"}
+          <HiArrowSmallLeft />
         </button>
         {paginationNumbers().map((number) => (
           <button
             key={number}
             onClick={() => handlePageClick(number)}
-            className={`px-4 py-2 text-white rounded ${
-              currentPage === number ? "bg-teal-700" : "bg-neutral-400"
+            className={`px-3 py-1.5 rounded-full ${
+              currentPage === number ? "border border-teal-500" : ""
             }`}
           >
             {number}
           </button>
         ))}
+
         <button
           onClick={handleNextRange}
           disabled={pageRange.end >= totalPages}
-          className="px-4 py-2 rounded bg-neutral-400 text-white"
+          className="p-1 bg-teal-500 text-neutral-700 rounded-full ml-3"
         >
-          {">"}
+          <HiArrowSmallRight />
         </button>
       </div>
     </main>
