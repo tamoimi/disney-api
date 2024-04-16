@@ -115,17 +115,15 @@ export default function Card() {
         <button
           onClick={handlePreviousRange}
           disabled={pageRange.start === 1}
-          className="p-1 bg-teal-500 text-neutral-700 rounded-full mr-3"
+          className="p-1 bg-teal-500 text-white rounded-full mr-3"
         >
-          <HiArrowSmallLeft />
+          <HiArrowSmallLeft size={20} />
         </button>
         {paginationNumbers().map((number) => (
           <button
             key={number}
             onClick={() => handlePageClick(number)}
-            className={`px-3 py-1.5 rounded-full ${
-              currentPage === number ? "border border-teal-500" : ""
-            }`}
+            className={`px-3 py-1.5 rounded-full ${currentPage === number ? "bg-neutral-200" : ""}`}
           >
             {number}
           </button>
@@ -134,9 +132,9 @@ export default function Card() {
         <button
           onClick={handleNextRange}
           disabled={pageRange.end >= totalPages}
-          className="p-1 bg-teal-500 text-neutral-700 rounded-full ml-3"
+          className="p-1 bg-teal-500 text-white rounded-full ml-3"
         >
-          <HiArrowSmallRight />
+          <HiArrowSmallRight size={20} />
         </button>
       </div>
     </main>
